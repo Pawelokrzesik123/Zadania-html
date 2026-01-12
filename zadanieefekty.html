@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Gradienty i efekty tekstowe</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .container {
+            background: radial-gradient(circle at top, #3a6073, #16222a); 
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6); 
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .name {
+            font-size: 42px;
+            margin-bottom: 25px;
+            text-shadow: 4px 4px 10px black; 
+        }
+
+        
+        .text-neon {
+            font-size: 24px;
+            color: #00ffcc;
+            text-shadow: 0 0 5px #00ffcc, 0 0 15px #00ffcc;
+            margin: 15px 0;
+        }
+
+        
+        .text-outline {
+            font-size: 24px;
+            color: transparent;
+            -webkit-text-stroke: 1.5px #ffcc00;
+            margin: 15px 0;
+        }
+
+       
+        .text-gradient {
+            font-size: 24px;
+            background: linear-gradient(90deg, #ff512f, #dd2476);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="name">Paweł Okrzesik<br>klasa 4TiB</div>
+
+        <div class="text-neon">Efekt neonowy</div>
+        <div class="text-outline">Efekt konturu</div>
+        <div class="text-gradient">Efekt gradientowego tekstu</div>
+    </div>
+</body>
+</html>
