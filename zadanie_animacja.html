@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Canvas animacja</title>
+<style>
+  body { margin: 0; background: #ddd; }
+  canvas { display: block; margin: auto; background: #87CEEB; }
+</style>
+</head>
+<body>
+
+<canvas id="canvas" width="800" height="400"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let carX = -100;
+let armAngle = 0;
+let direction = 1;
+
+function drawBackground() {
+  // gradient nieba
+  let gradient = ctx.createLinearGradient(0, 0, 0, 400);
+  gradient.addColorStop(0, "#87CEEB");
+  gradient.addColorStop(1, "#ffffff");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, 800, 400);
+
+  // droga
+  ctx.fillStyle = "gray";
+  ctx.fillRect(0, 300, 800, 100);
+
+  // linia przerywana
+  ctx.strokeStyle = "white";
+  ctx.setLineDash([20, 15]);
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(0, 350);
+  ctx.lineTo(800, 350);
+  ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+function drawCar(x) {
+  ctx.save();
+
+  // cień
+  ctx.shadowColor = "black";
+  ctx.shadowBlur = 10;
+
+  // karoseria
+  ctx.fillStyle = "red";
+  ctx.fillRect(x, 260, 100, 40);
+
+  // okno
+  ctx.fillStyle = "lightblue";
+  ctx.fillRect(x + 20, 240, 60, 30);
+
+  // obrys
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(x, 260, 100, 40);
+
+  // koła
+  ctx.beginPath();
+  ctx.arc(x + 20, 305, 10, 0, Math.PI * 2);
+  ctx.arc(x + 80, 305, 10, 0, Math.PI * 2);
+  ctx.fillStyle = "black";
+  ctx.fill();
+
+  ctx.restore();
+}
+
+function drawPerson() {
+  ctx.save();
+
+  ctx.translate(600, 250);
+
+  // głowa
+  ctx.beginPath();
+  ctx.arc(0, -40, 15, 0, Math.PI * 2);
+  ctx.fillStyle = "#f5c16c";
+  ctx.fill();
+
+  // tułów
+  ctx.beginPath();
+  ctx.moveTo(0, -25);
+  ctx.lineTo(0, 30);
+  ctx.stroke();
+
+  // nogi
+  ctx.beginPath();
+  ctx.moveTo(0, 30);
+  ctx.lineTo(-10, 50);
+  ctx.moveTo(0, 30);
+  ctx.lineTo(10, 50);
+  ctx.stroke();
+
+  // ręka stała
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(-20, 10);
+  ctx.stroke();
+
+  // ręka machająca
+  ctx.save();
+  ctx.translate(0, 0);
+  ctx.rotate(armAngle);
+
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.quadraticCurveTo(15, -10, 25, 10);
+  ctx.stroke();
+
+  ctx.restore();
+
+  ctx.restore();
+}
+
+function drawText() {
+  ctx.fillStyle = "black";
+  ctx.font = "20px Arial";
+  ctx.fillText("Prosta animacja Canvas", 10, 30);
+
+  ctx.strokeStyle = "black";
+  ctx.strokeText("Auto + Ludzik", 10, 60);
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  drawBackground();
+  drawCar(carX);
+  drawPerson();
+  drawText();
+
+  // ruch auta
+  carX += 2;
+  if (carX > 800) carX = -100;
+
+  // machanie ręką
+  armAngle += 0.05 * direction;
+  if (armAngle > 0.5 || armAngle < -0.5) {
+    direction *= -1;
+  }
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
