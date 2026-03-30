@@ -1,0 +1,23 @@
+
+<h1>FadeIn oraz FadeOut</h1>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<button id="FadeIn">wyswietl diva</button>
+<button id="FadeOut">Ukryj diva</button>
+<div style="width: 300; height: 300;
+            background-color: red; display: none;"
+            id="div1"></div>
+
+
+<script>
+    $( function(){
+        $("#FadeIn").click( function(){
+            $("#div1").fadeIn();
+        } );
+
+
+        $("#FadeOut").click( function(){
+            $("#div1").fadeOut();
+        } );
+    } );
+</script>
+
